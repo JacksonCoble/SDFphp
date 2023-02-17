@@ -1,12 +1,8 @@
-<!doctype html>
+
 <?php include "template.php"?>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Contact Us</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-</head>
+
 <body>
 <h1>Contact Us</h1>
 
@@ -44,7 +40,8 @@ if (isset($_POST['formSubmit'])) {
 $csvFile = fopen("contact.csv",mode: "a");
 fwrite($csvFile,$userEmail.",".$userMessage."\n");
 fclose($csvFile);
-} // "ryan.cather@ed.act.edu.au, You need cookies"
+}
+
 ?>
 
 
