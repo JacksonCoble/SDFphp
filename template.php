@@ -46,3 +46,7 @@ function sanitiseData($unsanitisedData): string
     $sanitisedData = htmlspecialchars($unsanitisedData);
     return $sanitisedData;
 }
+
+
+
+1
