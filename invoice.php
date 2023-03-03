@@ -3,26 +3,34 @@
 <body>
 
 <?php
+
+$invoiceNumber = intval(sanitiseData($_GET["invoiceNumber"]));
+echo $invoiceNumber;
+
 // Read the contents of the file
 $currentRow = 1;
 if (($handle = fopen("orders.csv", "r")) !== FALSE) {
     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        $numberOfRowsOfData = count($data);
-        $currentRow++; //Add one to the current row
+        if ($currentRow == $invoiceNumber) {
+
+            $numberOfRowsOfData = count($data);
+            $currentRow++; //Add one to the current row
 
 // Customer Details
-        $cusNameFirst = $data[0];
-        $cusNameSecond = $data[1];
-        $cusAddress = $data[2];
-        $cusEmail = $data[3];
-        $cusPhone = $data[4];
+            $cusNameFirst = $data[0];
+            $cusNameSecond = $data[1];
+            $cusAddress = $data[2];
+            $cusEmail = $data[3];
+            $cusPhone = $data[4];
 
 // Product Quantities
-        $prod1Quantity = $data[5];
-        $prod2Quantity = $data[6];
-        $prod3Quantity = $data[7];
-        $prod4Quantity = $data[8];
-        $prod5Quantity = $data[9];
+            $prod1Quantity = $data[5];
+            $prod2Quantity = $data[6];
+            $prod3Quantity = $data[7];
+            $prod4Quantity = $data[8];
+            $prod5Quantity = $data[9];
+        }
+        $currentRow++; //add one to the current row
     }
 fclose($handle);    //Closes the File
 
