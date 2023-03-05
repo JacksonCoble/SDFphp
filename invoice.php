@@ -3,6 +3,7 @@
 <body>
 
 <?php
+/** @var $productPrices */
 
 $invoiceNumber = intval(sanitiseData($_GET["invoiceNumber"]));
 echo $invoiceNumber;
@@ -40,11 +41,11 @@ fclose($handle);    //Closes the File
     $prod4ItemCost = 19.99;
     $prod5ItemCost = 79.99;
 
-    $prod1SubTotal = $prod1Quantity * $prod1ItemCost;
-    $prod2SubTotal = $prod2Quantity * $prod2ItemCost;
-    $prod3SubTotal = $prod3Quantity * $prod3ItemCost;
-    $prod4SubTotal = $prod4Quantity * $prod4ItemCost;
-    $prod5SubTotal = $prod5Quantity * $prod5ItemCost;
+    $prod1SubTotal = $prod1Quantity * $productPrices["product1"];
+    $prod2SubTotal = $prod2Quantity * $productPrices["product2"];
+    $prod3SubTotal = $prod3Quantity * $productPrices["product3"];
+    $prod4SubTotal = $prod4Quantity * $productPrices["product4"];
+    $prod5SubTotal = $prod5Quantity * $productPrices["product5"];
     $invoiceTotal = $prod1SubTotal + $prod2SubTotal + $prod3SubTotal + $prod4SubTotal + $prod5SubTotal;
 }
 ?>

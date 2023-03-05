@@ -37,7 +37,7 @@ if (isset($_POST['formSubmit'])) {
     $userEmail = sanitiseData($_POST['contactEmail']) ;
     $userMessage = sanitiseData($_POST['contactMessage']);
 
-$csvFile = fopen("contact.csv",mode: "a");
+$csvFile = fopen("contact.csv","a");
 fwrite($csvFile,$userEmail.",".$userMessage."\n");
 fclose($csvFile);
 }
