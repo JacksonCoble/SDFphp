@@ -51,7 +51,7 @@ if ($numberOfUsers > 0) {
     // the username has entered is unique ( doesn't already exist )
     $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-    $sqlStmt = $conn->prepare("INSERT INTO Customers (EmailAddress,HashedPassword, FirstName, SecondName, Address, PhoneNumber )VALUES (:EmailAddress :HashedPassword :FirstName :SecondName :Address :PhoneNumber)");
+    $sqlStmt = $conn->prepare("INSERT INTO Customers (EmailAddress,HashedPassword, FirstName, SecondName, Address, PhoneNumber )VALUES ((:EmailAddress :HashedPassword ,FirstName ,SecondName :Address :PhoneNumber)");
     $sqlStmt->bindParam(':EmailAddress', $username);
     $sqlStmt->bindParam('HashedPassword', $hashedPassword);
     $sqlStmt->bindParam('FirstName', $FirstName);
