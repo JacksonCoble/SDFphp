@@ -19,6 +19,14 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="contact.php">Link</a>
+                    <?php
+                    if (isset($_SESSION["FirstName"])) {
+                        echo '<li class="nav-item" ><a class="nav-link" href = "orderForm.php"> Order Form </a ></li >';
+                        echo '<li class="nav-item" ><a class="nav-link" href = "invoiceList.php"> Invoice list</a ></li >';
+                    } else {
+                        echo '<li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>';
+                    }
+                    ?>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="orderForm.php">Order Form</a>
@@ -31,6 +39,11 @@
                 </li>
             </ul>
         </div>
+        <?php
+        if (isset($_SESSION["FirstName"])) {
+            echo '<div class="bg-light">Welcome, ' . $_SESSION["FirstName"] . '!<a class="nav-link" href="logout.php">Logout</a></div>';
+        }
+        ?>
     </div>
 </nav>
 <?php
@@ -62,6 +75,3 @@ function sanitiseData($unsanitisedData): string
 
 
 ?>
-
-
-
