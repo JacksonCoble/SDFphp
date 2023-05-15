@@ -26,6 +26,24 @@
                     } else {
                         echo '<li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>';
                     }
+                    if (isset($_SESSION["AccessLevel"])) {
+                    if ($_SESSION["AccessLevel"] == 1) {
+                    ?>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Product Management
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="productAdd.php">Add Products</a></li>
+                        <li><a class="dropdown-item" href="productList.php">Product List</a></li>
+                    </ul>
+                </li>
+                <?php
+                }
+                }
+
+                ?>
                     ?>
                 </li>
                 <li class="nav-item">

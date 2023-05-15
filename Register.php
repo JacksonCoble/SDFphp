@@ -66,4 +66,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {   // Will return true when the user 
 }
 ?>
 
-// fsafsafsfs
