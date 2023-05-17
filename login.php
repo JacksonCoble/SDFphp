@@ -23,4 +23,3 @@ if (isset($_POST['login'])) {
         echo "<div class='alert alert-danger'>Invalid username or password</div>";
     }
     }
-    ?>

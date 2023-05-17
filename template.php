@@ -6,9 +6,8 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
 </head>
 <nav class="navbar navbar-expand-sm bg-danger">
-    <img src="https://media0.giphy.com/media/Asb0LwwJP9o9Y2VZip/giphy.gif" height="100px">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#"><img src="https://media0.giphy.com/media/Asb0LwwJP9o9Y2VZip/giphy.gif" height="100px"></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -17,9 +16,17 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contact.php">Link</a>
+                 <li class="nav-item">
+                     <a class="nav-link" href="contact.php">Link</a>
+                 </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="invoiceList.php">invoice</a>-->
+<!--                </li>-->
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="orderForm.php.">Order Form</a>-->
+<!--                </li>-->
                     <?php
+
                     if (isset($_SESSION["FirstName"])) {
                         echo '<li class="nav-item" ><a class="nav-link" href = "orderForm.php"> Order Form </a ></li >';
                         echo '<li class="nav-item" ><a class="nav-link" href = "invoiceList.php"> Invoice list</a ></li >';
@@ -28,7 +35,7 @@
                     }
                     if (isset($_SESSION["AccessLevel"])) {
                     if ($_SESSION["AccessLevel"] == 1) {
-                    ?>
+                      ?>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
@@ -40,21 +47,8 @@
                     </ul>
                 </li>
                 <?php
-                }
-                }
 
                 ?>
-                    ?>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="orderForm.php">Order Form</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="invoicelist.php.php">Invoice</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="Register.php">Register</a>
-                </li>
             </ul>
         </div>
         <?php
@@ -62,7 +56,6 @@
             echo '<div class="bg-light">Welcome, ' . $_SESSION["FirstName"] . '!<a class="nav-link" href="logout.php">Logout</a></div>';
         }
         ?>
-    </div>
 </nav>
 <?php
 
@@ -87,9 +80,4 @@ function sanitiseData($unsanitisedData): string
     $unsanitisedData = stripslashes($unsanitisedData);
     $sanitisedData = htmlspecialchars($unsanitisedData);
     return $sanitisedData;
-}
-
-
-
-
-?>
+}}}
