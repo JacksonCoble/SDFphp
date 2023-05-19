@@ -2,7 +2,7 @@
 <title>Invoice List</title>
 <body>
 
-//<?php
+<?php
  //Read the contents of the file
 //$currentRow = 1;
 //if (($handle = fopen("orders.csv", "r")) !== FALSE) {

@@ -1,9 +1,11 @@
+<?php session_start(); ?>
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <script src="js/bootstrap.bundle.min.js"></script>
 </head>
 <nav class="navbar navbar-expand-sm bg-danger">
     <div class="container-fluid">
@@ -17,7 +19,7 @@
                     <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                 </li>
                  <li class="nav-item">
-                     <a class="nav-link" href="contact.php">Link</a>
+                     <a class="nav-link" href="contact.php">Contact us</a>
                  </li>
 <!--                <li class="nav-item">-->
 <!--                    <a class="nav-link" href="invoiceList.php">invoice</a>-->
@@ -47,7 +49,8 @@
                     </ul>
                 </li>
                 <?php
-
+                }
+                    }
                 ?>
             </ul>
         </div>
@@ -80,4 +83,10 @@ function sanitiseData($unsanitisedData): string
     $unsanitisedData = stripslashes($unsanitisedData);
     $sanitisedData = htmlspecialchars($unsanitisedData);
     return $sanitisedData;
-}}}
+}
+if (isset($_SESSION["FirstName"])) {
+    echo '<li class="nav-item" ><a class="nav-link" href = "orderForm.php"> Order Form </a ></li >';
+    echo '<li class="nav-item" ><a class="nav-link" href = "invoiceList.php"> Invoice list</a ></li >';
+} else {
+    echo '<li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>';
+}

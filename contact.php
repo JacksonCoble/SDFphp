@@ -1,6 +1,6 @@
-
-<?php include "template.php"?>
-
+<?php include "template.php";
+/** @var $conn */
+?>
     <title>Contact Us</title>
 
 <body>
@@ -37,10 +37,10 @@ if (isset($_POST['formSubmit'])) {
     $userEmail = sanitiseData($_POST['contactEmail']) ;
     $userMessage = sanitiseData($_POST['contactMessage']);
 
-    $sqlStmt = $conn->prepare("INSERT INTO Contact (ContactEmail, ContactMessage)VALUES (:ContactEmail, :ContactMessage)");
-    $sqlStmt->bindParam(':ContactEmail', $userEmail);
-    $sqlStmt->bindParam('ContactMessage', $userMessage);
-    $sqlStmt->execute();
+    $SQLStmt = $conn->prepare("INSERT INTO Contact (ContactEmail, ContactMessage)VALUES (:ContactEmail, :ContactMessage)");
+    $SQLStmt->bindParam(':ContactEmail', $userEmail);
+    $SQLStmt->bindParam('ContactMessage', $userMessage);
+    $SQLStmt->execute();
 
 
 
@@ -56,7 +56,6 @@ if (isset($_POST['formSubmit'])) {
 
 <?php echo footer() ?>
 </body>
-<script src="js/bootstrap.bundle.min.js" ></script>
 </html>
 
 1
