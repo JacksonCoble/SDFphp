@@ -1,6 +1,6 @@
 <?php session_start(); ?>
-<!doctype html>
-<html lang="en">
+    <!doctype html>
+    <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,39 +18,39 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="index.php">Home</a>
                 </li>
-                 <li class="nav-item">
-                     <a class="nav-link" href="contact.php">Contact us</a>
-                 </li>
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="invoiceList.php">invoice</a>-->
-<!--                </li>-->
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="orderForm.php.">Order Form</a>-->
-<!--                </li>-->
-                    <?php
-
-                    if (isset($_SESSION["FirstName"])) {
-                        echo '<li class="nav-item" ><a class="nav-link" href = "orderForm.php"> Order Form </a ></li >';
-                        echo '<li class="nav-item" ><a class="nav-link" href = "invoiceList.php"> Invoice list</a ></li >';
-                    } else {
-                        echo '<li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>';
-                    }
-                    if (isset($_SESSION["AccessLevel"])) {
-                    if ($_SESSION["AccessLevel"] == 1) {
-                      ?>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Product Management
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="productAdd.php">Add Products</a></li>
-                        <li><a class="dropdown-item" href="productList.php">Product List</a></li>
-                    </ul>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.php">Contact us</a>
                 </li>
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link" href="invoiceList.php">invoice</a>-->
+                <!--                </li>-->
+                <!--                <li class="nav-item">-->
+                <!--                    <a class="nav-link" href="orderForm.php.">Order Form</a>-->
+                <!--                </li>-->
                 <?php
+
+                if (isset($_SESSION["FirstName"])) {
+                    echo '<li class="nav-item" ><a class="nav-link" href = "orderForm.php"> Order Form </a ></li >';
+                    echo '<li class="nav-item" ><a class="nav-link" href = "invoiceList.php"> Invoice list</a ></li >';
+                } else {
+                    echo '<li class="nav-item"><a class="nav-link" href="register.php">Register</a></li>';
                 }
+                if (isset($_SESSION["AccessLevel"])) {
+                    if ($_SESSION["AccessLevel"] == 1) {
+                        ?>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                Product Management
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="productAdd.php">Add Products</a></li>
+                                <li><a class="dropdown-item" href="productList.php">Product List</a></li>
+                            </ul>
+                        </li>
+                        <?php
                     }
+                }
                 ?>
             </ul>
         </div>
