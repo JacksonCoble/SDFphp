@@ -61,6 +61,26 @@
         ?>
 </nav>
 <?php
+if (isset($_SESSION['flash_message'])) {
+    $message = $_SESSION['flash_message'];
+    unset($_SESSION['flash_message']);
+    $_SESSION["flash_message"] = "<div class='bg-success'>Login Successful</div>";
+
+
+
+    $_SESSION["flash_message"] = "<div class='bg-danger'>Invalid Username or Password</div>";
+//    echo $message;
+    ?>
+    <div class="position-absolute bottom-0 end-0">
+        <?= $message ?>
+
+    </div>
+
+
+    <?php
+}
+?>
+<?php
 
 session_start();
 

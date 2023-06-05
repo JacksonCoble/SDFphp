@@ -1,139 +1,51 @@
-<?php include "template.php" ?>
-<title>Invoice</title>
-<body>
-
 <?php
-/** @var $productPrices */
+include "template.php";
+/**  @var $conn */
+/*
+ * The invoices page has a number of use cases to satisfy:
+        1. If user is not logged in, then redirect them to index.php
+        2. Users to view their "open" orders as a list.
+        3. Users to view invoices from individual orders (using the order variable in url, e.g `invoice.php?order=234`)
+        4. Inform users if they have not previously made any orders.
+        5. Administrators to view all orders
+        6. Administrators can OPEN and CLOSE orders
 
-$invoiceNumber = intval(sanitiseData($_GET["invoiceNumber"]));
-echo $invoiceNumber;
-
-// Read the contents of the file
-$currentRow = 1;
-if (($handle = fopen("orders.csv", "r")) !== FALSE) {
-    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-        if ($currentRow == $invoiceNumber) {
-
-            $numberOfRowsOfData = count($data);
-            $currentRow++; //Add one to the current row
-
-// Customer Details
-            $cusNameFirst = $data[0];
-            $cusNameSecond = $data[1];
-            $cusAddress = $data[2];
-            $cusEmail = $data[3];
-            $cusPhone = $data[4];
-
-// Product Quantities
-            $prod1Quantity = $data[5];
-            $prod2Quantity = $data[6];
-            $prod3Quantity = $data[7];
-            $prod4Quantity = $data[8];
-            $prod5Quantity = $data[9];
-        }
-        $currentRow++; //add one to the current row
-    }
-fclose($handle);    //Closes the File
-
-    $prod1ItemCost = 10.00;
-    $prod2ItemCost = 5.00;
-    $prod3ItemCost = 45.00;
-    $prod4ItemCost = 19.99;
-    $prod5ItemCost = 79.99;
-
-    $prod1SubTotal = $prod1Quantity * $productPrices["product1"];
-    $prod2SubTotal = $prod2Quantity * $productPrices["product2"];
-    $prod3SubTotal = $prod3Quantity * $productPrices["product3"];
-    $prod4SubTotal = $prod4Quantity * $productPrices["product4"];
-    $prod5SubTotal = $prod5Quantity * $productPrices["product5"];
-    $invoiceTotal = $prod1SubTotal + $prod2SubTotal + $prod3SubTotal + $prod4SubTotal + $prod5SubTotal;
+  @var $conn
+ */
+if (!isset($_SESSION["CustomerID"])) {
+    // Case 1. The user is not logged in.
+    header("Location:index.php");
 }
-?>
-<!--Customer Details-->
-<h1 class="text-primary">Invoice</h1>
-<div class="container-fluid">
+if (empty($_GET["order"])) {
+    // Case 2 - no 'order' variable detected in the url.
+    $custID = $_SESSION['CustomerID'];
+    if ($_SESSION["AccessLevel"] == 1) {
+        // Case 5 - Generate a list of all invoices for administrators
+        $query = $conn->query("SELECT OrderNumber FROM Order");
+        $count = $conn->querySingle("SELECT OrderNumber FROM Order");
+    } else {
+        // Case 2 - Generate a list of open invoices for user
+        $query = $conn->query("SELECT OrderNumber FROM Order WHERE CustomerID='$custID' AND Status='OPEN'");
+        $count = $conn->querySingle("SELECT OrderNumber FROM Order WHERE customerID='$custID' AND status='OPEN'");
+    }
+    $orderCodesForUser = [];
 
-    <div class="row">
-        <div class="col-md-12">
-            <h2 class="text-secondary">Customer Details</h2>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-6 text-primary">
-            Customer Name
-        </div>
-        <div class="col-md-6 text-bg-light">
-            <?= $cusNameFirst . " " . $cusNameSecond ?>
-        </div>
-        <div class="col-md-6 text-primary">
-            Address
-        </div>
-        <div class="col-md-6 text-bg-light">
-            <?= $cusAddress ?>
-        </div>
+    if ($count > 0) {  // Has the User made orders previously?
+        // Case 2: Display open orders
+        while ($data = $query->fetchArray()) {
+            $orderCode = $data[0];
+            array_push($orderCodesForUser, $orderCode);
+        }
+//Gets the unique order numbers from the extracted table above.
+        $unique_orders = array_unique($orderCodesForUser);
 
-        <div class="col-md-6 text-primary">
-            Email
-        </div>
-        <div class="col-md-6 text-bg-light">
-            <?= $cusEmail ?>
-        </div>
+    } else {
+        // Case 4: No orders found for the logged in user.
+        echo "<div class='badge bg-danger text-wrap fs-5'>You don't have any open orders. Please make an order to view them</div>";
 
-        <div class="col-md-6 text-primary">
-            Phone
-        </div>
-        <div class="col-md-6 text-bg-light">
-            <?= $cusPhone ?>
-        </div>
-    </div>
-</div>
-<!--Products ordered -->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12">
-            <h2 class="text-secondary">Products Ordered</h2>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-3">Product 1</div>
-        <div class="col-lg-3">$<?= $prod1ItemCost ?></div>
-        <div class="col-lg-3"><?= $prod1Quantity ?></div>
-        <div class="col-lg-3">$<?= $prod1SubTotal ?></div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3">Product 2</div>
-        <div class="col-lg-3">$<?= $prod2ItemCost ?></div>
-        <div class="col-lg-3"><?= $prod2Quantity ?></div>
-        <div class="col-lg-3">$<?= $prod2SubTotal ?></div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3">Product 3</div>
-        <div class="col-lg-3">$<?= $prod3ItemCost ?></div>
-        <div class="col-lg-3"><?= $prod3Quantity ?></div>
-        <div class="col-lg-3">$<?= $prod3SubTotal ?></div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3">Product 4</div>
-        <div class="col-lg-3">$<?= $prod4ItemCost ?></div>
-        <div class="col-lg-3"><?= $prod4Quantity ?></div>
-        <div class="col-lg-3">$<?= $prod4SubTotal ?></div>
-    </div>
-    <div class="row">
-        <div class="col-lg-3">Product 5</div>
-        <div class="col-lg-3">$<?= $prod5ItemCost ?></div>
-        <div class="col-lg-3"><?= $prod5Quantity ?></div>
-        <div class="col-lg-3">$<?= $prod5SubTotal ?></div>
-    </div>
-    <div class="row">
-        <div class="col-lg-12">
-            <h2 class="text-secondary text-sm-end">$<?= $invoiceTotal ?></h2>
-        </div>
-    </div>
-</div>
-
-<?php echo footer() ?>
-</body>
-
-</html>
-1
+    }
+} else {
+    // Case 3 - 'order' variable detected.
+}
+echo "<div class='container-fluid'>";
+// Produce a list of links of the Orders for the user.
