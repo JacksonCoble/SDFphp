@@ -1,4 +1,5 @@
 <?php
+
 /**  @var $conn */
 
 if (isset($_POST['login'])) {
@@ -16,11 +17,15 @@ if (isset($_POST['login'])) {
             $_SESSION['EmailAddress'] = $row['EmailAddress'];
             $_SESSION['AccessLevel'] = $row['AccessLevel'];
             $_SESSION['CustomerID'] = $row['CustomerID'];
+            $_SESSION["flash_message"] = "<div class='bg-success'>Login Successful</div>";
             header("location:index.php");
         } else {
             echo "<div class='alert alert-danger'>Invalid username or password</div>";
+            $_SESSION["flash_message"] = "<div class='bg-danger'>Invalid Username or Password</div>";
+            header("location:index.php");
         }
     } else {
         echo "<div class='alert alert-danger'>Invalid username or password</div>";
     }
-    }
+}
+?>
