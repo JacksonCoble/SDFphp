@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $prodPrice = sanitiseData($_POST['prodPrice']);
     $prodCode = sanitiseData($_POST['prodCode']);
 
-//check if product exists.
+//check if the product is there
     $query = $conn->query("SELECT COUNT(*) FROM Product WHERE code='$prodCode'");
     $data = $query->fetchArray();
     $numberOfProducts = (int)$data[0];
@@ -72,9 +72,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($numberOfProducts > 0) {
         echo "Sorry, product already taken";
     } else {
-        // Product Registration commences
+        // Product registration begins
 
-        // Image details
+        // Image detail
         $file = $_FILES['prodImage'];
         $fileName = $_FILES['prodImage']['name'];
         $fileTmpName = $_FILES['prodImage']['tmp_name'];
@@ -83,12 +83,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $fileType = $_FILES['prodImage']['type'];
 
         // defining what type of file is allowed
-        // We separate the file, and obtain the file extension.
+        // Separate the file and get the file extension.
         $fileExtension = explode('.', $fileName);
         $fileActualExtension = strtolower(end($fileExtension));
 
         $allowedExtensions = array('jpg', 'jpeg', 'png', 'pdf');
-        //We ensure the extension is allowable
+        //Is the extention allowable
         if (in_array($fileActualExtension, $allowedExtensions)) {
             if ($fileError === 0) {
                 // File is smaller than arbitrary size
@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     // Upload file
                     move_uploaded_file($fileTmpName, $fileDestination);
 
-                    // Write details to database
+                    // Details to database
                     $sql = "INSERT INTO Product (ProductName, Category, Quantity, ProductPrice, Image, Code) VALUES (:newProdName, :newProdCategory, :newProdQuantity, :newProdPrice, :newProdImage, :newProdCode)";
                     $stmt = $conn->prepare($sql);
                     $stmt->bindValue(':newProdName', $prodName);

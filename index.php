@@ -2,14 +2,12 @@
 <?php include 'login.php'; ?>
 <title>PHP Template</title>
 <body>
-<h1><em>The Among Us Sussy Shopfront</em></h1>
+<h1><em>Trees and stuff</em></h1>
 <div class="container-fluid">
     <div class="row">
         <div class="col-6">⠀⠀⠀⠀⠀
-            <p>username: ryan.cather@ed.act.edu.au</p>
-            <p>Password: password</p>
-            <p>username: admin@admin.com</p>
-            <p>Password: admin</p>
+         WELCOME TO TREES AND STUFF!!!
+            The most awesome website for trees! AND STUFF
         </div>
         <div class="col-6">
             <?php if (!isset($_SESSION["EmailAddress"])) : ?>

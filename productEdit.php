@@ -2,25 +2,29 @@
 /**  @var $conn */
 ?>
 <title>Edit Product</title>
+
 <?php
 
 if (isset($_GET["prodCode"])) {
     $prodCode = $_GET["prodCode"];
-    $query = $conn->query("SELECT DISTINCT category FROM Product");
+    $queryCategories = $conn->query("SELECT DISTINCT category FROM Product");
 } else {
-    header("location:index.php");
+    header("location:productList.php");
 }
 
 $query = $conn->query("SELECT * FROM product WHERE code='$prodCode'");
 $prodData = $query->fetchArray();
-$prodName = $prodData["ProductName"];
-$prodPrice = $prodData["ProductPrice"];
-$prodCategory = $prodData["Category"];
-$prodQuantity = $prodData["Quantity"];
-$prodImage = $prodData["Image"];
+$prodName = $prodData[1];
+$prodPrice = $prodData[2];
+$prodCategory = $prodData[3];
+$prodQuantity = $prodData[4];
+$prodImage = $prodData[5];
 ?>
 
-<h1 class='text-primary'>Edit Product - <?= $prodName ?></h1>
+<h1 class='text-primary'>Edit Product - <?= $prodName ?> </h1>
+
+
+<!-- Front End -->
 
 <?php
 // Check to see if User is Administrator (level 1)
@@ -56,7 +60,7 @@ if ($_SESSION['AccessLevel'] == 1) {
                 </div>
             </div>
         </div>
-        <input type="submit" name="formSubmit" value="Submit">
+        <input type="submit" name="formSubmit" value="Update">
     </form>
 
     <?php
@@ -65,18 +69,7 @@ if ($_SESSION['AccessLevel'] == 1) {
 }
 ?>
 
-<?php
-// Check to see if User is Administrator (level 1)
-// If they are, allow functionality, otherwise redirect them back to the front page.
-if ($_SESSION['AccessLevel'] == 1) {
-    ?>
 
-
-    <?php
-} else {
-    header("location:index.php");
-}
-?>
 <?php
 // Back End
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -124,16 +117,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $stmt->bindValue(':newProdImage', $fileNameNew);
                 $stmt->bindValue(':newProdCode', $newCode);
                 $stmt->execute();
+                $_SESSION["flash_message"] = "<div class='bg-success'>Product Editted.</div>";
+
                 header("location:productList.php");
             } else {
-                echo "Your image is too big!";
+                $_SESSION["flash_message"] = "<div class='bg-danger'>The image file size it too large.</div>";
             }
         } else {
-            echo "there was an error uploading your image!";
+            $_SESSION["flash_message"] = "<div class='bg-danger'>There was an issue uploading the image.</div>";
         }
     } else {
-        echo "You cannot upload files of this type!";
+        $_SESSION["flash_message"] = "<div class='bg-danger'>This file type is not supported. Only JPGs, PNGs or PDFs are allowed.</div>";
     }
 }
 
 ?>
+
+
+</body>
+</html>
+

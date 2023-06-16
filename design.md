@@ -48,11 +48,16 @@ title Contact Us
         Press Submit Button: 5: Any User
     
 ```
+Other behaviours to document
 
-```mermaid
+- Invoice
+- Ordering
+- Admin Product Add
+- Admin Product Edit
+- Admin Product Remove
 
-```
 
 # Planning Diagram - Wireframes
 
-![Main page wireframe](images/wireframes/main.png)
+![Main wireframe](file:///home/jacksoncoble/Pictures/Screenshot_20230616_140119.png)
+
