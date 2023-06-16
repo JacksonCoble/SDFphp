@@ -1,3 +1,5 @@
+// this code is where the name and description for the home page of the website is.
+
 <?php include "template.php" ?>
 <?php include 'login.php'; ?>
 <title>PHP Template</title>

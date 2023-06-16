@@ -19,7 +19,7 @@ if ($_SESSION['AccessLevel'] == 1) {
         <?php
         while ($productData = $productList->fetchArray()) {
             ?>
-            <!-- Display each product as [Image] [ProductName] [Edit Link]-->
+            <!-- Display each product
             <div class="row">
                 <div class="col-md-2">
                     <?php

@@ -6,6 +6,10 @@
 
 <h1 class="text-primary">Order Form</h1>
 
+// order form's code is desgined to provide a place for the customer to put their orders.
+
+
+// this code it to give each product a name, price, code, image and id, this it to make identify each product easier.
 <?php
 $status = "";
 if (isset($_POST['Code']) && $_POST['Code'] != "") {
@@ -50,6 +54,8 @@ if (isset($_POST['Code']) && $_POST['Code'] != "") {
     <?php echo $status; ?>
 </div>
 
+
+// the shopping carts purpose is to provide the customer a place to store his products which they would like to buy.
 <?php
 
 if (!empty($_SESSION["ShoppingCart"])) {

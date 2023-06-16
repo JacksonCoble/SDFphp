@@ -2,6 +2,8 @@
 
 /**  @var $conn */
 
+// the reason for these are quite simple to explain, the purpose once again is to simply give a space where the person can login.
+
 if (isset($_POST['login'])) {
     $username = sanitiseData($_POST['username']);
     $password = sanitiseData($_POST['password']);
@@ -10,6 +12,8 @@ if (isset($_POST['login'])) {
     $query = $conn->query("SELECT COUNT(*) as count, * FROM Customers WHERE `EmailAddress`='$username'");
     $row = $query->fetchArray();
     $count = $row['count'];
+
+    // The code blow shows the customer where they can put in their infomation
 
     if ($count > 0) {
         if (password_verify($password, $row['HashedPassword'])) {
